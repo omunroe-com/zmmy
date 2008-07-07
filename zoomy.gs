@@ -26,6 +26,14 @@ class ZoomyWindow : Gtk.Window
         default_width = 250
         window_position = WindowPosition.CENTER
 
+        var black_col = Gdk.Color()
+        black_col.red   = 0
+        black_col.green = 0
+        black_col.blue  = 0
+
+        //Gdk.Color.parse( "black", black_col )
+        modify_bg( StateType.NORMAL, black_col )
+
         destroy += Gtk.main_quit
 
         var vbox = new VBox( false, 0 )
@@ -69,12 +77,21 @@ class ZoomyWindow : Gtk.Window
         var dest_width = (int)( obj.pixbuf.width * scale )
         var dest_height = (int)( obj.pixbuf.height * scale )
 
+        var shift_x = 0
+        var shift_y = 0
+        if dest_width > obj.scaled_pixbuf.width
+            var mult_x = evt.motion.x / (double)obj.scaled_pixbuf.width
+            shift_x = (int)( mult_x * (double)( (obj.scaled_pixbuf.width - dest_width) ) )
+
+        if dest_height > obj.scaled_pixbuf.height
+            shift_y = (int)( (double)( (obj.scaled_pixbuf.height - dest_height) ) / 2.0 )
+
         if dest_width > obj.scaled_pixbuf.width
             dest_width = obj.scaled_pixbuf.width
         if dest_height > obj.scaled_pixbuf.height
             dest_height = obj.scaled_pixbuf.height
 
-        obj.pixbuf.scale( obj.scaled_pixbuf, 0, 0, dest_width, dest_height, 0, 0, scale, scale, InterpType.NEAREST )
+        obj.pixbuf.scale( obj.scaled_pixbuf, 0, 0, dest_width, dest_height, shift_x, shift_y, scale, scale, InterpType.NEAREST )
 
         var clipped_pixbuf = new Pixbuf.subpixbuf( obj.scaled_pixbuf, 0, 0, dest_width, dest_height )
 
