@@ -55,19 +55,16 @@ class ZoomyWindow : Gtk.Window
             if key.keyval == 65307
                 destroy()
 
-        //fullscreen()
+        fullscreen()
 
     def mouse_move( obj : ZoomyWindow, evt : Gdk.Event ) : bool
-        var height = (int)( evt.motion.y * 4 )
-        var width = 0
-
-        if height < 10
-            height = 10
+        var height = 10 + (int)( evt.motion.y * 1.1 )
 
         var scale = (double)height / (double)obj.pixbuf.height
+        scale = scale * scale * scale
 
-        //var shift_x = ( obj.scaled_pixbuf.width - dest_width ) / 2
-        //var shift_y = ( obj.scaled_pixbuf.height - dest_height ) / 2
+        if scale < 0.01
+            scale = 0.01
 
         var dest_width = (int)( obj.pixbuf.width * scale )
         var dest_height = (int)( obj.pixbuf.height * scale )
@@ -78,8 +75,6 @@ class ZoomyWindow : Gtk.Window
             dest_height = obj.scaled_pixbuf.height
 
         obj.pixbuf.scale( obj.scaled_pixbuf, 0, 0, dest_width, dest_height, 0, 0, scale, scale, InterpType.NEAREST )
-
-        //print "%d, %d", dest_width, dest_height
 
         var clipped_pixbuf = new Pixbuf.subpixbuf( obj.scaled_pixbuf, 0, 0, dest_width, dest_height )
 
