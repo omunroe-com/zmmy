@@ -64,17 +64,18 @@ class ZoomyWindow : Gtk.Window
         if height < 10
             height = 10
 
-        var scale = (double)height / (double)obj.scaled_pixbuf.height
-
-        var dest_width = obj.scaled_pixbuf.width
-        var dest_height = obj.scaled_pixbuf.height
+        var scale = (double)height / (double)obj.pixbuf.height
 
         //var shift_x = ( obj.scaled_pixbuf.width - dest_width ) / 2
         //var shift_y = ( obj.scaled_pixbuf.height - dest_height ) / 2
 
-        if scale < 1.0
-            dest_width = (int)( obj.scaled_pixbuf.width * scale )
-            dest_height = (int)( obj.scaled_pixbuf.height * scale )
+        var dest_width = (int)( obj.pixbuf.width * scale )
+        var dest_height = (int)( obj.pixbuf.height * scale )
+
+        if dest_width > obj.scaled_pixbuf.width
+            dest_width = obj.scaled_pixbuf.width
+        if dest_height > obj.scaled_pixbuf.height
+            dest_height = obj.scaled_pixbuf.height
 
         obj.pixbuf.scale( obj.scaled_pixbuf, 0, 0, dest_width, dest_height, 0, 0, scale, scale, InterpType.NEAREST )
 
