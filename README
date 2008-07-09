@@ -1,0 +1,52 @@
+Zoomy
+=====
+
+Intro
+-----
+
+Zoomy is a "game" intended for 2-3 year-olds.  It zooms in and out on a
+picture as the child moves the mouse.
+
+Compiling
+---------
+
+Zoomy is written in Genie - http://live.gnome.org/Genie
+
+You will need the normal GNOME developer packages and Vala 0.3.3 or above.
+
+Installing
+----------
+
+Currently there is no install as such.  Just do this:
+
+make
+
+and then:
+
+./zoomy FILENAME
+
+where FILENAME is the filename of the picture you'd like to show.  You can
+also add zoomy to the "Open with" box in GNOME to make it easier to launch
+on a particular image.
+
+Licence
+-------
+
+Zoomy is copyright (C) 2008 Andy Balaam.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+See the file COPYING for more details.
+
