@@ -1,0 +1,19 @@
+Time flows upwards
+
++ means done
+- means not done
+
+Future
+
+- Music?
+- Slideshow?
+- deb installer that sets up Zoomy as an "Opwn with" option
+- "Press ESC to exit" message
+- Switch between fullscreen and not with F11 or "f" key
+
+Release 0.1
+
++ Filename as command line arg
++ Zoom in and out
++ Pan left and right when zoomed in
+
