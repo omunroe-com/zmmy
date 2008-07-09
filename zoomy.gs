@@ -8,9 +8,11 @@ uses
 init
     Gtk.init( ref args )
     var zoomy = new ZoomyWindow()
-    zoomy.show_all()
-    Gtk.main();
+    var success = zoomy.setup( args )
 
+    if success
+        zoomy.show_all()
+        Gtk.main();
 
 
 class ZoomyWindow : Gtk.Window
@@ -18,9 +20,14 @@ class ZoomyWindow : Gtk.Window
     prop pixbuf : Pixbuf
     prop scaled_pixbuf : Pixbuf
     prop img : Gtk.Image
-    //prop pixbuf_width_over_height : double
 
-    init
+    def setup( args : array of string ) : bool
+        if args.length < 2
+            print "Please supply the filename of the file to show"
+            return false
+
+        var image_filename = args[1]
+
         title = "Zoomy"
         default_height = 250
         default_width = 250
@@ -31,19 +38,17 @@ class ZoomyWindow : Gtk.Window
         black_col.green = 0
         black_col.blue  = 0
 
-        //Gdk.Color.parse( "black", black_col )
         modify_bg( StateType.NORMAL, black_col )
 
         destroy += Gtk.main_quit
 
         var vbox = new VBox( false, 0 )
 
-        //var lbl = new Label( "Press ESC to exit" )
-        //vbox.add( lbl )
-        //vbox.set_child_packing( lbl, false, false, 0, PackType.START )
-
-        pixbuf = new Pixbuf.from_file( "/home/andy/Desktop/Carys-Fish.jpg" )
-        //pixbuf_width_over_height = (double)pixbuf.width / (double)pixbuf.height
+        try
+            pixbuf = new Pixbuf.from_file( image_filename )
+        except
+            print "Could not open file '%s'", image_filename
+            return false
 
         scaled_pixbuf = new Pixbuf( Colorspace.RGB, false, 8, pixbuf.width, pixbuf.height )
 
@@ -64,6 +69,8 @@ class ZoomyWindow : Gtk.Window
                 destroy()
 
         fullscreen()
+
+        return true
 
     def mouse_move( obj : ZoomyWindow, evt : Gdk.Event ) : bool
         var height = 10 + (int)( evt.motion.y * 1.1 )
