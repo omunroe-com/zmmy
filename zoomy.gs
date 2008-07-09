@@ -92,7 +92,7 @@ class ZoomyWindow : Gtk.Window
         return true
 
     def mouse_move( obj : ZoomyWindow, evt : Gdk.Event ) : bool
-        var height = 10 + (int)( evt.motion.y * 1.1 )
+        var height = 10 + (int)( evt.motion.y * 1.4 )
 
         var scale = (double)height / (double)obj.pixbuf.height
         scale = scale * scale * scale
